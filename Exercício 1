@@ -1,0 +1,100 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class FormaGeometrica {
+    public double calcularArea() {
+        return 0.0;
+    }
+}
+
+class Retangulo extends FormaGeometrica {
+    private double largura;
+    private double altura;
+
+    public Retangulo(double largura, double altura) {
+        this.largura = largura;
+        this.altura = altura;
+    }
+
+    @Override
+    public double calcularArea() {
+        return largura * altura;
+    }
+
+    @Override
+    public String toString() {
+        return "Retângulo: Largura = " + largura + ", Altura = " + altura + ", Área = " + calcularArea();
+    }
+}
+
+class Circulo extends FormaGeometrica {
+    private double raio;
+
+    public Circulo(double raio) {
+        this.raio = raio;
+    }
+
+    @Override
+    public double calcularArea() {
+        return Math.PI * raio * raio;
+    }
+
+    @Override
+    public String toString() {
+        return "Círculo: Raio = " + raio + ", Área = " + calcularArea();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<FormaGeometrica> formas = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        int opcao;
+        do {
+            System.out.println("Menu:");
+            System.out.println("1 - Inserir e calcular área");
+            System.out.println("2 - Mostrar todas as formas inseridas");
+            System.out.println("3 - Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    System.out.println("Escolha o tipo de forma (1 - Retângulo, 2 - Círculo):");
+                    int tipoForma = scanner.nextInt();
+                    if (tipoForma == 1) {
+                        System.out.print("Digite a largura do retângulo: ");
+                        double largura = scanner.nextDouble();
+                        System.out.print("Digite a altura do retângulo: ");
+                        double altura = scanner.nextDouble();
+                        Retangulo retangulo = new Retangulo(largura, altura);
+                        formas.add(retangulo);
+                        System.out.println("Área do retângulo: " + retangulo.calcularArea());
+                    } else if (tipoForma == 2) {
+                        System.out.print("Digite o raio do círculo: ");
+                        double raio = scanner.nextDouble();
+                        Circulo circulo = new Circulo(raio);
+                        formas.add(circulo);
+                        System.out.println("Área do círculo: " + circulo.calcularArea());
+                    } else {
+                        System.out.println("Opção inválida.");
+                    }
+                    break;
+                case 2:
+                    System.out.println("Formas geométricas inseridas:");
+                    for (FormaGeometrica forma : formas) {
+                        System.out.println(forma);
+                    }
+                    break;
+                case 3:
+                    System.out.println("Saindo do programa.");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Escolha novamente.");
+            }
+        } while (opcao != 3);
+
+        scanner.close();
+    }
+}
